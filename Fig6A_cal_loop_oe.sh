@@ -29,3 +29,8 @@ for i in $(seq 22) X; do
 done
 awk '{print $1 "\t" $2 "\t" $2+10000 "\t" $1 "\t" $3 "\t" $3+10000 "\t" $4}' shsatb1_2_observed_KR_10kb.txt > shsatb1_2_observed_KR_10kb.bedpe
 bedtools pairtopair -a loops.txt -b shsatb1_2_observed_KR_10kb.bedpe | sort -k1,1 -k2,2n | uniq > shsatb1_2_loops_observed_KR_10kb.txt
+
+## define loops
+awk '{if($11 > 3/2) print $0}' shctrl_shsatb1_oe.txt > up_loops.txt
+awk '{if($11 < 2/3) print $0}' shctrl_shsatb1_oe.txt > down_loops.txt
+awk '{if($11 > 2/3 && $11 < 3/2) print $0}' shctrl_shsatb1_oe.txt > unchanged_loops.txt  
